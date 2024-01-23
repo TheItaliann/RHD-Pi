@@ -1,4 +1,4 @@
-# Raspberry Pi Pico Funke Decoder and Hovercraft
+# Raspberry Pi Pico Decoder and Hovercraft
 
 ## Overview
 
