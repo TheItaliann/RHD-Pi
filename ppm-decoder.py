@@ -1,8 +1,8 @@
-from ppm_reader import PPMReader
+from ppm_reader import PpmReader
 import time
 ppm_pin_id = 28
 ppm_channels = 3
-ppmReader=PPMReader(ppm_pin_id,ppm_channels)
+ppmReader=PpmReader(ppm_pin_id,ppm_channels)
 
 def connect() -> bool:
     """Wait for the connection with the Remote"""
@@ -26,5 +26,4 @@ def connection() -> bool:
 
 def reader() -> None:
     # read the PPM signal and check connection
-    
     print(ppmReader.get_values())
