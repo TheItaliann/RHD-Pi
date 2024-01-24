@@ -1,0 +1,9 @@
+ch1-norm = 1.496 ms 100%
+ch1-links = 1.2 ms 0%
+ch1-rechts = 1.788 ms -100%
+
+ch2-Gas = 1.924 ms 100%
+ch2-norm = 1.488 ms 0%
+
+ch3-an = 1.992 ms 100%
+ch3-aus = 0.992 ms 0%
