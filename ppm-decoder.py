@@ -1,29 +1,22 @@
-from ppm_reader import PpmReader
+from machine import Pin
 import time
 ppm_pin_id = 28
 ppm_channels = 3
-ppmReader=PpmReader(ppm_pin_id,ppm_channels)
 
-def connect() -> bool:
-    """Wait for the connection with the Remote"""
-    while ppmReader.get_valid_packets() == 0:
-        print("Waiting for the Remote to connect...")
-        time.sleep(0.5)
-    print("Remote connected!")
-    return True
+ppm_pin = Pin(ppm_pin_id, Pin.IN, Pin.PULL_UP)
+ppm_channels_values = [0] * ppm_channels
 
-def connection() -> bool:
-    """Check if the Remote is still connected"""
-    last_paccket_time=ppmReader.time_since_last_packet()
-    print("Last packet time: "+str(last_paccket_time))
-    if last_paccket_time > 25000: # if 25ms without packets
-        print("Remote disconnected!")
-        return False
-    else:
-        # if a packet is received within 25ms
-        print("connected")
-        return True
+def ppm_callback(pin):
+    global ppm_channels_values
+    ppm_channels_values = [0] * ppm_channels
+    ppm_channels_values[0] = time.ticks_us()
+    for i in range(1, ppm_channels):
+        while ppm_pin.value() == 1:
+            pass
+        ppm_channels_values[i] = time.ticks_us()
 
-def reader() -> None:
-    # read the PPM signal and check connection
-    print(ppmReader.get_values())
+ppm_pin.irq(trigger=Pin.IRQ_RISING, handler=ppm_callback)
+
+while True:
+    print(ppm_channels_values)
+    time.sleep(1)
