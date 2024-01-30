@@ -9,7 +9,7 @@ Welcome to the Raspberry Pi Pico radio Decoder and Hovercraft project! In this e
 **Denis Möller
 **Emanuele Alejandro Ustica
 
-
+<NAME_A>,<SURNAME_A>
 ## Requirements
 
 Before diving into the project, make sure you have the following components:
