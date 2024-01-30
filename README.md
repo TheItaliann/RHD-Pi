@@ -34,5 +34,5 @@ https://github.com/TheItaliann/Rc-HD-Pi/tree/main
 - Python
 
 ## Technologies
-MicroPython
+- MicroPython
 
