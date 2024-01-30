@@ -3,6 +3,7 @@
 ## Overview
 
 Welcome to the Raspberry Pi Pico radio Decoder and Hovercraft project! In this exciting endeavor, we want to create a simple decoder using Python on a Raspberry Pi Pico to interpret signals from a standard radio controller.
+##reposotorie
 https://github.com/TheItaliann/Rc-HD-Pi/tree/main
 
 ## Members
@@ -11,8 +12,6 @@ https://github.com/TheItaliann/Rc-HD-Pi/tree/main
 - Emanuele Alejandro Ustica
 
 ## Requirements
-
-Before diving into the project, make sure you have the following components:
 
 1. **Raspberry Pi Pico:** The heart of our project, responsible for decoding signals and controlling the hovercraft.
 
@@ -29,4 +28,8 @@ Before diving into the project, make sure you have the following components:
 7. **Plastic Bag:** A plastic bag to create a skirt around the hovercraft, enhancing its ability to glide on surfaces.
 
 8. **3D-Printed Hovercraft Model:** A 3D-printed model of a hovercraft, serving as the physical structure for the project.
+
+
+##Technologies
+MicroPython
 
