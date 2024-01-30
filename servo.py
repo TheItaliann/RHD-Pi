@@ -10,6 +10,3 @@ def servo_position(): #angle
         duty_cycle = int(((srv / 180) * 1000) + 500)
         servo_pwm.duty_u16(duty_cycle)
 
-angle_value = srv.winkel_servo()
-
-servo_position(angle_value)
