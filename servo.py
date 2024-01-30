@@ -36,28 +36,28 @@ pwm.freq(50)
 while True:
     print("10")
     pwm.duty_u16(grad010)
-    sleep(0.1)
+    sleep(0.00001)
 
 
     print("20")
     pwm.duty_u16(grad010)
-    sleep(0.1)
+    sleep(0.00000000000001)
 
     print("30")
     pwm.duty_u16(grad030)
-    sleep(0.2)
+    sleep(0.00000000000001)
 
     print("40")
     pwm.duty_u16(grad040)
-    sleep(0.0001)
+    sleep(0.00000000000001)
 
     print("50")
     pwm.duty_u16(grad050)
-    sleep(0.2)
+    sleep(0.00000000000001)
 
     print("60")
     pwm.duty_u16(grad060)
-    sleep(0.2)
+    sleep(0.00000000000001)
 
     print("70")
     pwm.duty_u16(grad070)
@@ -65,51 +65,51 @@ while True:
 
     print("80")
     pwm.duty_u16(grad080)
-    sleep(0.2)
+    sleep(0.00000000000001)
 
     print("90")
     pwm.duty_u16(grad090)
-    sleep(0.1)
+    sleep(0.00000000000001)
 
     print("100")
     pwm.duty_u16(grad100)
-    sleep(0.2)
+    sleep(0.00000000000001)
 
     print("110")
     pwm.duty_u16(grad110)
-    sleep(0.2)
+    sleep(0.00000000000001)
 
     print("120")
     pwm.duty_u16(grad120)
-    sleep(0.2)
+    sleep(0.00000000000001)
 
     print("130")
     pwm.duty_u16(grad130)
-    sleep(0.5)
+    sleep(0.00000000000001)
 
     print("140")
     pwm.duty_u16(grad140)
-    sleep(0.05)
+    sleep(0.00000000000001)
 
     print("150")
     pwm.duty_u16(grad150)
-    sleep(0.5)
+    sleep(0.00000000000001)
 
     print("160")
     pwm.duty_u16(grad160)
-    sleep(0.3)
+    sleep(0.00000000000001)
 
     print("170")
     pwm.duty_u16(grad170)
-    sleep(0.005)
+    sleep(0.00000000000001)
 
     print("180!!!!!")
     pwm.duty_u16(grad180)
-    sleep(0.1)
+    sleep(0.00000000000001)
 
     print("0")
     pwm.duty_u16(grad000)
-    sleep(0.01)
+    sleep(0.00000000000001)
+
     pwm.deinit()
     print('Ende')
-
