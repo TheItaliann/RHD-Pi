@@ -4,7 +4,7 @@
 
 Welcome to the Raspberry Pi Pico radio Decoder and Hovercraft project! In this exciting endeavor, we want to create a simple decoder using Python on a Raspberry Pi Pico to interpret signals from a standard radio controller.
 
-##Members##
+##Members
 
 **Denis Möller
 **Emanuele Alejandro Ustica
