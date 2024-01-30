@@ -30,6 +30,8 @@ https://github.com/TheItaliann/Rc-HD-Pi/tree/main
 
 8. **3D-Printed Hovercraft Model:** A 3D-printed model of a hovercraft, serving as the physical structure for the project.
 
+## Programminglanguages
+- Python
 
 ##Technologies
 MicroPython
