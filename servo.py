@@ -1,19 +1,43 @@
+# Bibliotheken laden
 from machine import Pin, PWM
-import time
+from time import sleep
 
-servo_pin = 7
+# GPIO für Steuersignal
+servo_pin = 28
 
-servo_pwm = PWM(Pin(servo_pin), freq=50)  # Passen Sie die Frequenz an, falls erforderlich
+# 0 Grad
+grad000 = 500000
+# 45 Grad
+grad045 = 1000000
+# 90 Grad
+grad090 = 1500000
+# 135 Grad
+grad135 = 2000000
+# 180 Grad
+grad180 = 2500000
 
-def servo_position(angle):
-    duty_cycle = int(((angle / 180) * 1000) + 500)
-    servo_pwm.duty_u16(duty_cycle)
+pwm = PWM(Pin(servo_pin))
+pwm.freq(50)
 
-try:
-    while True:
-        for angle in range(0, 180, 10):  # Ändern Sie den Bereich je nach Ihren Anforderungen
-            servo_position(angle)
-            time.sleep_ms(500)  # Ändern Sie die Verzögerung je nach Ihren Anforderungen
-except Exception as e:
-    print("Fehler:", e)
-    servo_pwm.deinit()  # Deinitialisieren Sie den PWM-Pin im Fehlerfall
+print('Position: Mitte (90 Grad)')
+pwm.duty_ns(grad090)
+sleep(2)
+
+print('Position: Ganz Links (0 Grad)')
+pwm.duty_ns(grad000)
+sleep(2)
+
+print('Position: Mitte (90 Grad)')
+pwm.duty_ns(grad090)
+sleep(2)
+
+print('Position: Ganz Rechts (180 Grad)')
+pwm.duty_ns(grad180)
+sleep(2)
+
+print('Position: Mitte (90 Grad)')
+pwm.duty_ns(grad090)
+sleep(2)
+
+pwm.deinit()
+print('Ende')
