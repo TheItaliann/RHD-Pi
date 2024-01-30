@@ -33,6 +33,6 @@ https://github.com/TheItaliann/Rc-HD-Pi/tree/main
 ## Programminglanguages
 - Python
 
-##Technologies
+## Technologies
 MicroPython
 
