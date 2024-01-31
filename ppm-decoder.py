@@ -15,18 +15,25 @@ class PPMDecoder:
         self.time_servo = Pulse(self.pin1, 1, 1_000_000)       
         self.time_throttle = Pulse(self.pin2, 1, 1_000_000)       
         self.time_button = Pulse(self.pin3, 1, 1_000_000)
-        self.channels[0] = self.time_servo()
-        self.channels[1] = self.time_throttle()
-        self.channels[2] = self.time_button()      
+        self.channels[0] = self.time_servo
+        self.channels[1] = self.time_throttle
+        self.channels[2] = self.time_button      
         return self.channels
+    
+    def button(self):
+        if self.time_button > 900:
+            return True
+        else:
+            return False
     
 if __name__ == "__main__":
     ppm = PPMDecoder(27, 26, 22)
     while True:
         values = ppm.callback()
+        state = ppm.button()
         servo = values[0]
         throttle = values[1]
         button = values[2]
-        print("Servo: ", servo, "Throttle: ", throttle, "Button: ", button)
+        print("Servo: ", servo, "Throttle: ", throttle, "Button: ", button, "State: ", state)
         print("")
         time.sleep(1)
