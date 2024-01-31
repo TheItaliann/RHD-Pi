@@ -20,7 +20,17 @@ class PPMDecoder:
         self.channels[2] = self.time_button      
         return self.channels
     
-    
+    def convert(self) -> list:
+        steering = ((servo - 1198) / (1785 - 1198)) * 100 # Calculate steering value
+        throttle = ((throttle - 1488) / (1924 - 1488)) * 100 # Calculate throttle value
+        if button > 900:
+            button_state = "Off"
+        else:
+            button_state = "On"
+        print(f"button is {button_state}")
+        return [steering, throttle, button_state]
+
+        
 if __name__ == "__main__":
     ppm = PPMDecoder(27, 21, 22)
     while True:
@@ -32,11 +42,4 @@ if __name__ == "__main__":
         print("Servo: ", servo, "Throttle: ", throttle, "Button: ", button,)
         print("")
         time.sleep(1)
-        if button > 900:
-            button_state = "Off"
-        else:
-            button_state = "On"
-        print(f"button is {button_state}")
-        
-        steering = ((servo - 1198) / (1785 - 1200)) * 100
-        print(f"{int(steering)}%")
+    
