@@ -9,7 +9,6 @@ class PPMDecoder:
         self.throttle = Pin(self.pin2, Pin.IN, Pin.PULL_UP)
         self.servo = Pin(self.pin1, Pin.IN, Pin.PULL_UP)
         self.button = Pin(self.pin3, Pin.IN, Pin.PULL_UP)
-        self.time = 0
         self.channels = [0, 0, 0]
 
     def callback(self):
@@ -24,5 +23,10 @@ class PPMDecoder:
 if __name__ == "__main__":
     ppm = PPMDecoder(27, 26, 22)
     while True:
-        print(ppm.callback())
+        values = ppm.callback()
+        servo = values[0]
+        throttle = values[1]
+        button = values[2]
+        print("Servo: ", servo, "Throttle: ", throttle, "Button: ", button)
+        print("")
         time.sleep(1)
