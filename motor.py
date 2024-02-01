@@ -11,11 +11,18 @@ pwm_frequency = 1000
 pwm = GPIO.PWM(motor_pin, pwm_frequency)
 pwm.start(0)
 
-while True:
-    eingabe = input("eingabe ")
-    pwm.ChangeDutyCycle(eingabe)
-    time.sleep(2)
-        
+try:
+    while True:
+        eingabe = input("Eingabe (0-100, 'q' zum Beenden): ")
+        if eingabe.lower() == 'q':
+            break  # Beenden Sie die Schleife, wenn 'q' eingegeben wird
+        duty_cycle = float(eingabe)
+        pwm.ChangeDutyCycle(duty_cycle)
+        time.sleep(2)
 
-pwm.stop()
-GPIO.cleanup()
+except KeyboardInterrupt:
+    pass
+
+finally:
+    pwm.stop()
+    GPIO.cleanup()
