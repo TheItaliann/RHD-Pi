@@ -1,26 +1,27 @@
-import RPi.GPIO as GPIO
-import time
+import machine
+import utime
+#from decoder import perendage_speed
 
-motor_pin = 4 # Beispiel-GPIO-Pin (ersetzen Sie dies durch Ihren gewünschten Pin)
+ESC_PIN = 16  
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(motor_pin, GPIO.OUT)
+pwm = machine.PWM(machine.Pin(ESC_PIN))
+pwm.freq(50)  
+speed = 100 #perendage_speed
+
+def set_speed(speed):
+    speed = min(max(speed, 0), 100)
+    
+    duty_cycle = int(speed * 10.24)
+    pwm.duty_u16(duty_cycle)
 
 try:
     while True:
-        eingabe = input("Drücken Sie Enter, um den Motor zu starten (q zum Beenden): ")
-        if eingabe.lower() == 'q':
-            break  # Beenden Sie die Schleife, wenn 'q' eingegeben wird
-
-        # Motor starten
-        GPIO.output(motor_pin, GPIO.HIGH)
-        time.sleep(3)  # Motor für 3 Sekunden laufen lassen
-
-        # Motor stoppen
-        GPIO.output(motor_pin, GPIO.LOW)
+        if speed < 0:
+            continue
+        set_speed()
+          
 
 except KeyboardInterrupt:
-    pass
-
+    print("beendet")
 finally:
-    GPIO.cleanup()
+    pwm.deinit()  
