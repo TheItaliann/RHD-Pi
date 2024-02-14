@@ -1,4 +1,4 @@
-from machine import Pin, time_pulse_us as Pulse
+from machine import Pin
 import time
 
 class PPMDecoder:
@@ -10,14 +10,22 @@ class PPMDecoder:
         self.servo = Pin(self.pin1, Pin.IN, Pin.PULL_UP)
         self.button = Pin(self.pin3, Pin.IN, Pin.PULL_UP)
         self.channels = [0, 0, 0]
+        self.pin1.irq(trigger=Pin.IRQ_RISING, handler=self.callback)
+        self.pin1.irq(trigger=Pin.IRQ_FALLING, handler=self.callback)
+        self.pin2.irq(trigger=Pin.IRQ_FALLING, handler=self.callback)
+        self.pin3.irq(trigger=Pin.IRQ_FALLING, handler=self.callback)
 
-    def callback(self) -> list:
-        self.time_servo = Pulse(self.pin1, 1, 1_000_000)       
-        self.time_throttle = Pulse(self.pin2, 1, 1_000_000)       
-        self.time_button = Pulse(self.pin3, 1, 1_000_000)
-        self.channels[0] = self.time_servo
-        self.channels[1] = self.time_throttle
-        self.channels[2] = self.time_button      
+    def callback(self) -> list: # using the callback function to get the pulse width
+        '''This function is used to get the pulse width of the PPM signal. It uses the IRQ to get the pulse width of the PPM signal. It is called when the signal is rising and falling. It returns the pulse width of the PPM signal.'''
+        if self.pin1.irq(trigger=Pin.IRQ_RISING):
+            timer = time.ticks_us()
+            if self.pin1.irq(trigger=Pin.IRQ_FALLING):
+                self.channels[0] = time.ticks_diff(timer, time.ticks_us())
+            if self.pin2.irq(trigger=Pin.IRQ_FALLING):
+                self.channels[1] = time.ticks_diff(timer, time.ticks_us())
+            if self.pin3.irq(trigger=Pin.IRQ_FALLING):
+                self.channels[2] = time.ticks_diff(timer, time.ticks_us())
+
         return self.channels
     
     def convert(self) -> list:
@@ -30,7 +38,8 @@ class PPMDecoder:
         print(f"button is {button_state}")
         return [steering, throttle, button_state]
 
-        
+            
+
 if __name__ == "__main__":
     ppm = PPMDecoder(27, 21, 22)
     while True:
