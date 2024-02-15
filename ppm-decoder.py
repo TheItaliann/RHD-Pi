@@ -17,14 +17,16 @@ class PPMDecoder:
 
     def callback(self) -> list: # using the callback function to get the pulse width
         '''This function is used to get the pulse width of the PPM signal. It uses the IRQ to get the pulse width of the PPM signal. It is called when the signal is rising and falling. It returns the pulse width of the PPM signal.'''
+        timer = 0
         if self.pin1.irq(trigger=Pin.IRQ_RISING):
             timer = time.ticks_us()
-            if self.pin1.irq(trigger=Pin.IRQ_FALLING):
-                self.channels[0] = time.ticks_diff(timer, time.ticks_us())
-            if self.pin2.irq(trigger=Pin.IRQ_FALLING):
-                self.channels[1] = time.ticks_diff(timer, time.ticks_us())
-            if self.pin3.irq(trigger=Pin.IRQ_FALLING):
-                self.channels[2] = time.ticks_diff(timer, time.ticks_us())
+        if self.pin1.irq(trigger=Pin.IRQ_FALLING):
+            self.channels[0] = time.ticks_diff(timer, time.ticks_us())
+        if self.pin2.irq(trigger=Pin.IRQ_FALLING):
+            self.channels[1] = time.ticks_diff(timer, time.ticks_us())
+        if self.pin3.irq(trigger=Pin.IRQ_FALLING):
+            self.channels[2] = time.ticks_diff(timer, time.ticks_us())
+
 
         return self.channels
     
