@@ -47,7 +47,6 @@ if __name__ == "__main__":
     ppm = PPMDecoder(27, 21, 22)
     while True:
         values = ppm.callback()
-        state = ppm.button()
         servo = values[0]
         throttle = values[1]
         button = values[2]
