@@ -12,21 +12,21 @@ class PPMDecoder:
         self.channels = [0, 0, 0]
 
     def callback(self) -> list: # using the callback function to get the pulse width
-        self.pin1.irq(trigger=Pin.IRQ_RISING, handler=self.startTimer)
-        def startTimer(self):
-            self.startTime = time.ticks_us()
-            self.pin1.irq(trigger=Pin.IRQ_FALLING, handler=self.endTimer1)
-            self.pin2.irq(trigger=Pin.IRQ_FALLING, handler=self.endTimer2)
-            self.pin3.irq(trigger=Pin.IRQ_FALLING, handler=self.endTimer3)
-        def endTimer1(self):
-            self.endTime = time.ticks_us()
-            self.channels[0] = time.ticks_diff(self.endTime, self.startTime)
-        def endTimer2(self):
-            self.endTime = time.ticks_us()
-            self.channels[1] = time.ticks_diff(self.endTime, self.startTime)
-        def endTimer3(self):
-            self.endTime = time.ticks_us()
-            self.channels[2] = time.ticks_diff(self.endTime, self.startTime)
+        self.servo.irq(trigger=Pin.IRQ_RISING, handler=self.startTimer)
+    def startTimer(self):
+        self.startTime = time.ticks_us()
+        self.servo.irq(trigger=Pin.IRQ_FALLING, handler=self.endTimer1)
+        self.throttle.irq(trigger=Pin.IRQ_FALLING, handler=self.endTimer2)
+        self.button.irq(trigger=Pin.IRQ_FALLING, handler=self.endTimer3)
+    def endTimer1(self):
+        self.endTime = time.ticks_us()
+        self.channels[0] = time.ticks_diff(self.endTime, self.startTime)
+    def endTimer2(self):
+        self.endTime = time.ticks_us()
+        self.channels[1] = time.ticks_diff(self.endTime, self.startTime)
+    def endTimer3(self):
+        self.endTime = time.ticks_us()
+        self.channels[2] = time.ticks_diff(self.endTime, self.startTime)
             
 
 
