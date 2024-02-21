@@ -13,6 +13,7 @@ class PPMDecoder:
 
     def callback(self) -> list: # using the callback function to get the pulse width
         self.servo.irq(trigger=Pin.IRQ_RISING, handler=self.startTimer)
+        return self.channels
     def startTimer(self):
         self.startTime = time.ticks_us()
         self.servo.irq(trigger=Pin.IRQ_FALLING, handler=self.endTimer1)
@@ -28,10 +29,7 @@ class PPMDecoder:
         self.endTime = time.ticks_us()
         self.channels[2] = time.ticks_diff(self.endTime, self.startTime)
             
-
-
-
-        return self.channels
+        
     
     def convert(self) -> list:
         steering = ((servo - 1198) / (1785 - 1198)) * 100 # Calculate steering value
