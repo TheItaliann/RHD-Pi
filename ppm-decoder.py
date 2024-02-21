@@ -10,24 +10,25 @@ class PPMDecoder:
         self.servo = Pin(self.pin1, Pin.IN, Pin.PULL_UP)
         self.button = Pin(self.pin3, Pin.IN, Pin.PULL_UP)
         self.channels = [0, 0, 0]
-        self.pin1.irq(trigger=Pin.IRQ_RISING, handler=self.callback)
-        self.pin1.irq(trigger=Pin.IRQ_FALLING, handler=self.callback)
-        self.pin2.irq(trigger=Pin.IRQ_FALLING, handler=self.callback)
-        self.pin3.irq(trigger=Pin.IRQ_FALLING, handler=self.callback)
 
     def callback(self) -> list: # using the callback function to get the pulse width
-        '''This function is used to get the pulse width of the PPM signal. It uses the IRQ to get the pulse width of the PPM signal. It is called when the signal is rising and falling. It returns the pulse width of the PPM signal.'''
-        timer = 0
-        if self.pin1.irq(trigger=Pin.IRQ_RISING):
-            timer = time.ticks_us()
-            while True:
-                if self.pin1.irq(trigger=Pin.IRQ_FALLING):
-                    self.channels[0] = time.ticks_diff(timer, time.ticks_us())
-                if self.pin2.irq(trigger=Pin.IRQ_FALLING):
-                    self.channels[1] = time.ticks_diff(timer, time.ticks_us())
-                    break
-                if self.pin3.irq(trigger=Pin.IRQ_FALLING):
-                    self.channels[2] = time.ticks_diff(timer, time.ticks_us())
+        self.pin1.irq(trigger=Pin.IRQ_RISING, handler=self.startTimer)
+        def startTimer(self):
+            self.startTime = time.ticks_us()
+            self.pin1.irq(trigger=Pin.IRQ_FALLING, handler=self.endTimer1)
+            self.pin2.irq(trigger=Pin.IRQ_FALLING, handler=self.endTimer2)
+            self.pin3.irq(trigger=Pin.IRQ_FALLING, handler=self.endTimer3)
+        def endTimer1(self):
+            self.endTime = time.ticks_us()
+            self.channels[0] = time.ticks_diff(self.endTime, self.startTime)
+        def endTimer2(self):
+            self.endTime = time.ticks_us()
+            self.channels[1] = time.ticks_diff(self.endTime, self.startTime)
+        def endTimer3(self):
+            self.endTime = time.ticks_us()
+            self.channels[2] = time.ticks_diff(self.endTime, self.startTime)
+            
+
 
 
         return self.channels
