@@ -13,28 +13,32 @@ class PPMDecoder:
 
     def callback(self) -> list: # using the callback function to get the pulse width
         self.servo.irq(trigger=Pin.IRQ_RISING, handler=self.startTimer)
+        self.throttle.irq(trigger=Pin.IRQ_RISING, handler=self.startTimer)
+        self.button.irq(trigger=Pin.IRQ_RISING, handler=self.startTimer)
         return self.channels
-    def startTimer(self):
+    def startTimer(self, pin):
         self.startTime = time.ticks_us()
-        self.servo.irq(trigger=Pin.IRQ_FALLING, handler=self.endTimer1)
         self.throttle.irq(trigger=Pin.IRQ_FALLING, handler=self.endTimer2)
+        
+        self.servo.irq(trigger=Pin.IRQ_FALLING, handler=self.endTimer1)
+        
         self.button.irq(trigger=Pin.IRQ_FALLING, handler=self.endTimer3)
-    def endTimer1(self):
-        self.endTime = time.ticks_us()
-        self.channels[0] = time.ticks_diff(self.endTime, self.startTime)
-    def endTimer2(self):
-        self.endTime = time.ticks_us()
-        self.channels[1] = time.ticks_diff(self.endTime, self.startTime)
-    def endTimer3(self):
-        self.endTime = time.ticks_us()
-        self.channels[2] = time.ticks_diff(self.endTime, self.startTime)
+    def endTimer1(self, pin):
+        self.endTime1 = time.ticks_us()
+        self.channels[0] = time.ticks_diff(self.endTime1, self.startTime)
+    def endTimer2(self, pin):
+        self.endTime2 = time.ticks_us()
+        self.channels[1] = time.ticks_diff(self.endTime2, self.startTime)
+    def endTimer3(self, pin):
+        self.endTime3 = time.ticks_us()
+        self.channels[2] = time.ticks_diff(self.endTime3, self.startTime)
             
         
     
     def convert(self) -> list:
-        steering = ((servo - 1198) / (1785 - 1198)) * 100 # Calculate steering value
-        throttle = ((throttle - 1488) / (1924 - 1488)) * 100 # Calculate throttle value
-        if button > 900:
+        steering = ((self.channels[0] - 981587) / (982213 - 981587)) * 100 # Calculate steering value
+        throttle = ((self.channels[1] - 981442) / (982284 - 981442)) * 100 # Calculate throttle value
+        if self.channels[2] < 982000:
             button_state = "Off"
         else:
             button_state = "On"
@@ -44,11 +48,13 @@ class PPMDecoder:
             
 
 if __name__ == "__main__":
-    ppm = PPMDecoder(27, 21, 22)
+    ppm = PPMDecoder(27, 28, 26)
     while True:
-        values = ppm.callback()
-        servo = values[0]
-        throttle = values[1]
+        raw = ppm.callback()
+        values = ppm.convert()
+        servo = int(values[0])
+        throttle = int(values[1])
+        
         button = values[2]
         print("Servo: ", servo, "Throttle: ", throttle, "Button: ", button,)
         print("")
