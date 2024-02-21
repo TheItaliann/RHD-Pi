@@ -35,7 +35,21 @@ class PPMDecoder:
             
         
     
-    def convert(self) -> list:
+    def convert(self) -> list: # convert the pulse width to a value between 0 and 100
+        min_servo = 0
+        max_servo = 99999999
+        min_throttle = 0
+        max_throttle = 99999999
+        if self.channels[0] < min_servo:
+            min_servo = self.channels[0]
+        elif self.channels[0] > max_servo:
+            max_servo = self.channels[0]
+        if self.channels[1] < min_throttle:
+            min_throttle = self.channels[1]
+        elif self.channels[1] > max_throttle:
+            max_throttle = self.channels[1]
+
+        
         steering = ((self.channels[0] - 981587) / (982213 - 981587)) * 100 # Calculate steering value
         throttle = ((self.channels[1] - 981442) / (982284 - 981442)) * 100 # Calculate throttle value
         if self.channels[2] < 982000:
