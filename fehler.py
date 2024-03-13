@@ -5,13 +5,13 @@ from utime import ticks_ms, ticks_diff, sleep
 ir_pin = Pin(28, Pin.IN)
 
 
-distance_traveled = 0  
+distance_traveled = 0
 turns = 0  
-count = 0
-
+count = 0 
 
 hole_dis_cm = 0.22  
-wheel_u_cm = 7.85  
+wheel_u_cm = 2.5 * 3.1416  
+
 
 last_time = ticks_ms()
 
@@ -44,4 +44,3 @@ while True:
     velocity = measure_speed()
     print(f"Geschwindigkeit: {velocity:.2f} km/h")
     sleep(1)
-
