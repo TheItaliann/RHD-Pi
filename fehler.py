@@ -1,15 +1,22 @@
 from machine import Pin
+from main import Driver
+import _thread
 
-sensor_d = Pin(21, Pin.IN)
-count = 0
+sensor_d = Pin(28, Pin.IN)
 distance_trv = 0
 
-def distance():
-    distance_trv += 1.4137
+def distance(pin):
+    global distance_trv
+    distance_trv += 1
+    print(distance_trv)
     
-def sensor_irq(pin):
-    global count
-    count += 1
-    
-while True:
-    sensor_d.irq(trigger=Pin.IRQ_RISING, handler=distance)
+def test():
+    test = Driver(0,1,2,3)
+    test.forward(100, 1)
+
+if __name__ == "__main__":
+    _thread.start_new_thread(test, ())
+    while True:
+        sensor_d.irq(trigger=Pin.IRQ_RISING, handler=distance)
+
+        
