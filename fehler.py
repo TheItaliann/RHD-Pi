@@ -1,1 +1,6 @@
- python train.py --workers 8 --device 0 --batch 32 --data dataset/data.yaml --img 640 --cfg models/detect/yolov9_custom.yaml --weights '' --name gelan-c-det --hyp hyp.scratch-high.yaml --min-items 0 --epochs 300 --close-mosaic 10
+PS C:\Users\itlab\yolov9> python train.py --workers 8 --device 0 --batch 32 --data dataset/data.yaml --img 640 --cfg models/detect/yolov9_custom.yaml --weights '' --name gelan-c-det --hyp hyp.scratch-high.yaml --min-items 0 --epochs 300 --close-mosaic 10 
+usage: train.py [-h] [--weights WEIGHTS] [--cfg CFG] [--data DATA] [--hyp HYP] [--epochs EPOCHS] [--batch-size BATCH_SIZE] [--imgsz IMGSZ] [--rect] [--resume [RESUME]] [--nosave] [--noval] [--noautoanchor] [--noplots]
+                [--evolve [EVOLVE]] [--bucket BUCKET] [--cache [CACHE]] [--image-weights] [--device DEVICE] [--multi-scale] [--single-cls] [--optimizer {SGD,Adam,AdamW,LION}] [--sync-bn] [--workers WORKERS] [--project PROJECT]      
+                [--name NAME] [--exist-ok] [--quad] [--cos-lr] [--flat-cos-lr] [--fixed-lr] [--label-smoothing LABEL_SMOOTHING] [--patience PATIENCE] [--freeze FREEZE [FREEZE ...]] [--save-period SAVE_PERIOD] [--seed SEED]
+                [--local_rank LOCAL_RANK] [--min-items MIN_ITEMS] [--close-mosaic CLOSE_MOSAIC] [--entity ENTITY] [--upload_dataset [UPLOAD_DATASET]] [--bbox_interval BBOX_INTERVAL] [--artifact_alias ARTIFACT_ALIAS]
+train.py: error: argument --weights: expected one argument
